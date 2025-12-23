@@ -7,6 +7,7 @@ import {
     Container,
     Paper,
 } from '@mui/material';
+import apiList from '../../constants/apiList';
 
 const LoginPage = () => {
     const [formData, setFormData] = useState({
@@ -22,10 +23,23 @@ const LoginPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Login data:', formData);
-        // Add login logic here
+        try {
+            const response = await fetch(apiList.AUTH.LOGIN.url, {
+                method: apiList.AUTH.LOGIN.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+            if (data.success === true) {
+                setFormData({ email: '', password: '' });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (

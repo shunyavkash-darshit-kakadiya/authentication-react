@@ -7,6 +7,7 @@ import {
     Container,
     Paper,
 } from '@mui/material';
+import apiList from '../../constants/apiList';
 
 const RegisterPage = () => {
     const [formData, setFormData] = useState({
@@ -23,9 +24,23 @@ const RegisterPage = () => {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Register data:', formData);
+        try {
+            const response = await fetch(apiList.AUTH.REGISTER.url, {
+                method: apiList.AUTH.REGISTER.method,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+            const data = await response.json();
+            if (data.success === true) {
+                setFormData({ firstName: '', email: '', password: '' });
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     return (
