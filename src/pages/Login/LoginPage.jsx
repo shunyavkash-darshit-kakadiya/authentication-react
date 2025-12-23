@@ -7,6 +7,7 @@ import {
     Container,
     Paper,
 } from '@mui/material';
+import { Link } from 'react-router-dom';
 import apiList from '../../constants/apiList';
 
 const LoginPage = () => {
@@ -77,6 +78,9 @@ const LoginPage = () => {
                     >
                         Login
                     </Button>
+                    <Typography variant="body2" align="center">
+                        Don't have an account? <Link to="/register">Register</Link>
+                    </Typography>
                 </Box>
             </Paper>
         </Container>
