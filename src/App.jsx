@@ -1,7 +1,12 @@
 import "./App.css";
+import GooglePage from "./pages/Google/GooglePage";
 
 function App() {
-  return <>123</>;
+  return (
+    <>
+      <GooglePage />
+    </>
+  );
 }
 
 export default App;
