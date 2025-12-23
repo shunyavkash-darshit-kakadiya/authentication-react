@@ -7,7 +7,7 @@ import {
     Container,
     Paper,
 } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import apiList from '../../constants/apiList';
 
 const LoginPage = () => {
@@ -15,6 +15,8 @@ const LoginPage = () => {
         email: '',
         password: '',
     });
+
+    const navigate = useNavigate();
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,6 +39,7 @@ const LoginPage = () => {
             const data = await response.json();
             if (data.success === true) {
                 setFormData({ email: '', password: '' });
+                navigate('/dashboard');
             }
         } catch (error) {
             console.error('Error:', error);
