@@ -2,8 +2,11 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { useGoogleLogin } from "@react-oauth/google";
 import apiList from "../../constants/apiList";
+import { useAuth } from "../../stores/useAuth";
 
 const GooglePage = () => {
+  const { setUserInfo } = useAuth();
+
   const handleGoogleLogin = useGoogleLogin({
     onSuccess: async (tokenResponse) => {
       try {
@@ -27,6 +30,9 @@ const GooglePage = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(obj),
+        });
+        setUserInfo({
+          isLoggedIn: true,
         });
       } catch (error) {
         console.error("Error fetching Google user info", error);

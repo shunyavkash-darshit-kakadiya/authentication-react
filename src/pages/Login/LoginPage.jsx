@@ -7,17 +7,18 @@ import {
   Container,
   Paper,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import apiList from "../../constants/apiList";
 import GooglePage from "../Google/GooglePage";
+import { useAuth } from "../../stores/useAuth";
 
 const LoginPage = () => {
+  const { setUserInfo } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
-
-  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -40,7 +41,9 @@ const LoginPage = () => {
       const data = await response.json();
       if (data.success === true) {
         setFormData({ email: "", password: "" });
-        navigate("/dashboard");
+        setUserInfo({
+          isLoggedIn: true,
+        });
       }
     } catch (error) {
       console.error("Error:", error);

@@ -16,6 +16,10 @@ const apiList = {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/google`,
     },
+    LOGOUT: {
+      method: "POST",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/logout`,
+    },
   },
 };
 
