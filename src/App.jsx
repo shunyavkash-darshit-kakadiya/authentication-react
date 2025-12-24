@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./layouts/header/Header";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
+import TestPage from "./pages/Test/TestPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./stores/useAuth";
@@ -30,6 +31,7 @@ function App() {
         </Route>
         <Route element={<LoggedInProtectedRoute />}>
           <Route path="/" element={<DashboardPage />} />
+          <Route path="/test" element={<TestPage />} />
         </Route>
       </Routes>
     </Router>
