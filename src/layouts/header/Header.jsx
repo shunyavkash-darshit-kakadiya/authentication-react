@@ -1,5 +1,6 @@
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import apiList from "../../constants/apiList";
+import apiService from "../../services/apiService";
 import { useAuth } from "../../stores/useAuth";
 
 const Header = () => {
@@ -7,12 +8,7 @@ const Header = () => {
 
   const handleLogout = async () => {
     try {
-      await fetch(apiList.AUTH.LOGOUT.url, {
-        method: apiList.AUTH.LOGOUT.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      await apiService(apiList.AUTH.LOGOUT);
       logout();
     } catch (error) {
       console.error("Logout error:", error);

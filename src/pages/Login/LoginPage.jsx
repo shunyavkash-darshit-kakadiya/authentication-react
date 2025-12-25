@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import apiList from "../../constants/apiList";
+import apiService from "../../services/apiService";
 import GooglePage from "../Google/GooglePage";
 import { useAuth } from "../../stores/useAuth";
 
@@ -31,14 +32,7 @@ const LoginPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(apiList.AUTH.LOGIN.url, {
-        method: apiList.AUTH.LOGIN.method,
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-      const data = await response.json();
+      const data = await apiService(apiList.AUTH.LOGIN, formData);
       if (data.success === true) {
         setFormData({ email: "", password: "" });
         setUserInfo({

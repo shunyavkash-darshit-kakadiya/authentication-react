@@ -2,6 +2,7 @@ import React from "react";
 import Button from "@mui/material/Button";
 import { useGoogleLogin } from "@react-oauth/google";
 import apiList from "../../constants/apiList";
+import apiService from "../../services/apiService";
 import { useAuth } from "../../stores/useAuth";
 
 const GooglePage = () => {
@@ -24,13 +25,7 @@ const GooglePage = () => {
           email: userInfo.email,
           googleId: userInfo.sub,
         };
-        await fetch(apiList.AUTH.GOOGLE_LOGIN.url, {
-          method: apiList.AUTH.GOOGLE_LOGIN.method,
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(obj),
-        });
+        await apiService(apiList.AUTH.GOOGLE_LOGIN, obj);
         setUserInfo({
           isLoggedIn: true,
         });
