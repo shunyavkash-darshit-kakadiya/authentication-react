@@ -29,6 +29,10 @@ const apiList = {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/verify`,
     },
+    SYNC: {
+      method: "GET",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/sync`,
+    },
   },
 };
 
