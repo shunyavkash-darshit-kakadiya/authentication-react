@@ -14,7 +14,7 @@ import apiService from "../../services/apiService";
 const RegisterPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    firstName: "",
+    fullName: "",
     email: "",
     password: "",
   });
@@ -32,7 +32,7 @@ const RegisterPage = () => {
     try {
       const data = await apiService(apiList.AUTH.REGISTER, formData);
       if (data.success === true) {
-        setFormData({ firstName: "", email: "", password: "" });
+        setFormData({ fullName: "", email: "", password: "" });
         navigate("/login");
       }
     } catch (error) {
@@ -60,9 +60,9 @@ const RegisterPage = () => {
             margin="normal"
             required
             fullWidth
-            label="First Name"
-            name="firstName"
-            value={formData.firstName}
+            label="Full Name"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
           />
           <TextField
