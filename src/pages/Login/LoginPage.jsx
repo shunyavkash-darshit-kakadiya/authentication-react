@@ -37,6 +37,7 @@ const LoginPage = () => {
         setFormData({ email: "", password: "" });
         setUserInfo({
           isLoggedIn: true,
+          await2FA: data?.data?.user?._id || null,
         });
       }
     } catch (error) {

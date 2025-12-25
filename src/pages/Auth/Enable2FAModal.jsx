@@ -10,7 +10,7 @@ const Enable2FAModal = () => {
   const { twoFactorEnabled, setUserInfo } = useAuth();
 
   useEffect(() => {
-    console.log("Two-Factor Enabled Status:", twoFactorEnabled);
+    // console.log("Two-Factor Enabled Status:", twoFactorEnabled);
   }, [twoFactorEnabled]);
 
   const handleKeyDown = (e) => {
