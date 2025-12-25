@@ -10,21 +10,21 @@ const Enable2FAModal = () => {
   const [qrData, setQrData] = useState(null);
   const { twoFactorEnabled, setUserInfo } = useAuth();
 
-  const handleEnable2FA = async () => {
-    try {
-      const res = await apiService(apiList.AUTH.ENABLE_2FA);
-      if (res.success) {
-        setQrData(res);
-      }
-    } catch (error) {
-      console.error("Failed to enable 2FA:", error);
-    }
-  };
-
   useEffect(() => {
-    if (twoFactorEnabled === false) {
-      handleEnable2FA();
-    }
+    if (twoFactorEnabled !== false) return;
+
+    const handleEnable2FA = async () => {
+      try {
+        const res = await apiService(apiList.AUTH.ENABLE_2FA);
+        if (res.success) {
+          setQrData(res);
+        }
+      } catch (error) {
+        console.error("Failed to enable 2FA:", error);
+      }
+    };
+
+    handleEnable2FA();
   }, [twoFactorEnabled]);
 
   const handleKeyDown = (e) => {

@@ -25,10 +25,9 @@ const GooglePage = () => {
           email: userInfo.email,
           googleId: userInfo.sub,
         };
-        const res = await apiService(apiList.AUTH.GOOGLE_LOGIN, obj);
+        await apiService(apiList.AUTH.GOOGLE_LOGIN, obj);
         setUserInfo({
           isLoggedIn: true,
-          await2FA: res?.data?._id || null,
         });
       } catch (error) {
         console.error("Error fetching Google user info", error);

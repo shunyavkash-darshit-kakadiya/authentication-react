@@ -16,20 +16,20 @@ function App() {
   const { isLoggedIn, setUserInfo } = useAuth();
 
   useEffect(() => {
+    if (!isLoggedIn) return;
+
     const sync2FAStatus = async () => {
-      if (isLoggedIn === true) {
-        try {
-          const res = await apiService(apiList.AUTH.SYNC);
-          console.log("2FA Sync Response===>", res);
-          if (res.success) {
-            setUserInfo({
-              twoFactorEnabled: res?.data?.twoFactorEnabled,
-              email: res?.data?.email,
-            });
-          }
-        } catch (error) {
-          console.error("Failed to sync 2FA status:", error);
+      try {
+        const res = await apiService(apiList.AUTH.SYNC);
+        if (res.success) {
+          setUserInfo({
+            twoFactorEnabled: res?.data?.twoFactorEnabled,
+            email: res?.data?.email,
+            id: res?.data?._id,
+          });
         }
+      } catch (error) {
+        console.error("Failed to sync 2FA status:", error);
       }
     };
 
