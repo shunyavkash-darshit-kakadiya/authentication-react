@@ -7,11 +7,12 @@ import {
   Container,
   Paper,
 } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiList from "../../constants/apiList";
 import apiService from "../../services/apiService";
 
 const RegisterPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     email: "",
@@ -32,6 +33,7 @@ const RegisterPage = () => {
       const data = await apiService(apiList.AUTH.REGISTER, formData);
       if (data.success === true) {
         setFormData({ firstName: "", email: "", password: "" });
+        navigate("/login");
       }
     } catch (error) {
       console.error("Error:", error);
