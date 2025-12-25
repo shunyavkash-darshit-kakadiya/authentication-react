@@ -20,9 +20,11 @@ function App() {
       if (isLoggedIn === true) {
         try {
           const res = await apiService(apiList.AUTH.SYNC);
+          console.log("2FA Sync Response===>", res);
           if (res.success) {
             setUserInfo({
               twoFactorEnabled: res?.data?.twoFactorEnabled,
+              email: res?.data?.email,
             });
           }
         } catch (error) {

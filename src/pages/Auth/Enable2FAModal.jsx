@@ -36,9 +36,11 @@ const Enable2FAModal = () => {
   const handleVerify = async () => {
     try {
       const res = await apiService(apiList.AUTH.ENABLE_2FA, { otp });
-      console.log("2FA Enabled Response===>", res);
-      setOtp("");
-      setUserInfo({ twoFactorEnabled: true });
+      if (res.success) {
+        setOtp("");
+        setQrData(null);
+        setUserInfo({ twoFactorEnabled: true });
+      }
     } catch (error) {
       console.error("Failed to enable 2FA:", error);
     }
@@ -52,8 +54,7 @@ const Enable2FAModal = () => {
       {qrData?.data?.qrCode && (
         <Stack spacing={2}>
           <Typography variant="body1" color="text.secondary">
-            Scan this QR code with Google Authenticator, Authy, or any
-            TOTP-compatible app.
+            Scan this QR code with Google Authenticator
           </Typography>
 
           <Box display="flex" justifyContent="center">
