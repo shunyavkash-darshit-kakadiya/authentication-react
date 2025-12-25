@@ -35,7 +35,7 @@ const Enable2FAModal = () => {
 
   const handleVerify = async () => {
     try {
-      const res = await apiService(apiList.AUTH.ENABLE_2FA, { otp });
+      const res = await apiService(apiList.AUTH.VERIFY_2FA, { otp });
       if (res.success) {
         setOtp("");
         setQrData(null);
