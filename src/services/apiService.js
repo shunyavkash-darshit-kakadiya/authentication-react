@@ -5,6 +5,7 @@ const apiService = async (apiConfig, data = null) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     };
 
     if (
