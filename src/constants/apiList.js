@@ -21,6 +21,14 @@ const apiList = {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/logout`,
     },
+    ENABLE_2FA: {
+      method: "POST",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/enable`,
+    },
+    VERIFY_2FA: {
+      method: "POST",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/verify`,
+    },
   },
 };
 

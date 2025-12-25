@@ -7,6 +7,7 @@ import TestPage from "./pages/Test/TestPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./stores/useAuth";
+import Enable2FAModal from "./pages/Auth/Enable2FAModal";
 
 function App() {
   const { isLoggedIn } = useAuth();
@@ -22,19 +23,22 @@ function App() {
   };
 
   return (
-    <Router>
-      {isLoggedIn && <Header />}
-      <Routes>
-        <Route element={<LoggedOutProtectedRoute />}>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register" element={<RegisterPage />} />
-        </Route>
-        <Route element={<LoggedInProtectedRoute />}>
-          <Route path="/" element={<DashboardPage />} />
-          <Route path="/test" element={<TestPage />} />
-        </Route>
-      </Routes>
-    </Router>
+    <>
+      <Router>
+        {isLoggedIn && <Header />}
+        <Routes>
+          <Route element={<LoggedOutProtectedRoute />}>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+          </Route>
+          <Route element={<LoggedInProtectedRoute />}>
+            <Route path="/" element={<DashboardPage />} />
+            <Route path="/test" element={<TestPage />} />
+          </Route>
+        </Routes>
+      </Router>
+      <Enable2FAModal />
+    </>
   );
 }
 
