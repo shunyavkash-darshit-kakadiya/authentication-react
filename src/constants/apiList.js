@@ -21,6 +21,10 @@ const apiList = {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/logout`,
     },
+    SYNC: {
+      method: "GET",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/sync`,
+    },
     ENABLE_2FA: {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/enable`,
@@ -29,9 +33,9 @@ const apiList = {
       method: "POST",
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/verify`,
     },
-    SYNC: {
-      method: "GET",
-      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/sync`,
+    LOGIN_VERIFY_2FA: {
+      method: "POST",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/login/verify`,
     },
   },
 };

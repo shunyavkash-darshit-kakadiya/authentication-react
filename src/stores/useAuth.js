@@ -9,6 +9,7 @@ export const useAuth = create(
       name: undefined,
       email: undefined,
       twoFactorEnabled: null,
+      pending2FA: null,
 
       login: (info) => {
         set({
@@ -28,6 +29,7 @@ export const useAuth = create(
           name: undefined,
           email: undefined,
           twoFactorEnabled: null,
+          pending2FA: null,
         });
 
         // Clear persisted storage

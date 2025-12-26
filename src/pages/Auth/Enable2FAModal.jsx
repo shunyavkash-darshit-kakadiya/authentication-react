@@ -35,7 +35,9 @@ const Enable2FAModal = () => {
 
   const handleVerify = async () => {
     try {
-      const res = await apiService(apiList.AUTH.VERIFY_2FA, { otp });
+      const res = await apiService(apiList.AUTH.VERIFY_2FA, {
+        otp,
+      });
       if (res.success) {
         setOtp("");
         setQrData(null);
@@ -48,7 +50,7 @@ const Enable2FAModal = () => {
 
   return (
     <CommonModal
-      open={twoFactorEnabled === true}
+      open={twoFactorEnabled === false}
       title="Enable Two-Factor Authentication"
     >
       {qrData?.data?.qrCode && (
