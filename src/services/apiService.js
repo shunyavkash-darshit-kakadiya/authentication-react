@@ -1,11 +1,29 @@
 import { useAuth } from "../stores/useAuth";
+import { getClientFingerprint } from "../utils/deviceInfo";
+
+let cachedVisitorId = null;
+
+const getVisitorId = async () => {
+  if (cachedVisitorId) return cachedVisitorId;
+  try {
+    const fingerprint = await getClientFingerprint();
+    cachedVisitorId = fingerprint.visitorId;
+    return cachedVisitorId;
+  } catch (error) {
+    console.error("Error getting visitorId:", error);
+    return null;
+  }
+};
 
 const apiService = async (apiConfig, data = null) => {
   try {
+    const visitorId = await getVisitorId();
+
     const config = {
       method: apiConfig.method,
       headers: {
         "Content-Type": "application/json",
+        ...(visitorId && { "x-visitor-id": visitorId }),
       },
       credentials: "include",
     };
@@ -21,16 +39,17 @@ const apiService = async (apiConfig, data = null) => {
 
     const response = await fetch(apiConfig.url, config);
 
-    if (response.status === 401 || response.status === 403) {
+    // Handle 401 - Check for force logout
+    if (response.status === 401) {
       const result = await response.json();
 
-      // If session is invalid, logout the user
-      if (result?.sessionInvalid || result?.deviceRemoved) {
+      // If forceLogout is true, logout user and redirect to login
+      if (result?.data?.forceLogout) {
         const { logout } = useAuth.getState();
         logout();
         window.location.href = "/login";
         throw new Error(
-          "Session expired or device removed. Please login again."
+          result?.message || "Session expired. Please login again."
         );
       }
     }
