@@ -1,3 +1,5 @@
+import { useAuth } from "../stores/useAuth";
+
 const apiService = async (apiConfig, data = null) => {
   try {
     const config = {
@@ -18,6 +20,20 @@ const apiService = async (apiConfig, data = null) => {
     }
 
     const response = await fetch(apiConfig.url, config);
+
+    if (response.status === 401 || response.status === 403) {
+      const result = await response.json();
+
+      // If session is invalid, logout the user
+      if (result?.sessionInvalid || result?.deviceRemoved) {
+        const { logout } = useAuth.getState();
+        logout();
+        window.location.href = "/login";
+        throw new Error(
+          "Session expired or device removed. Please login again."
+        );
+      }
+    }
 
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
