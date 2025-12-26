@@ -33,12 +33,17 @@ const LoginPage = () => {
     e.preventDefault();
     try {
       const data = await apiService(apiList.AUTH.LOGIN, formData);
-      if (data.success === true) {
-        setFormData({ email: "", password: "" });
+      if (data?.data?.require2FA) {
         setUserInfo({
-          isLoggedIn: true,
+          pending2FA: data?.data?.accountId,
+          twoFactorEnabled: true,
         });
+        return;
       }
+      setFormData({ email: "", password: "" });
+      setUserInfo({
+        isLoggedIn: true,
+      });
     } catch (error) {
       console.error("Error:", error);
     }

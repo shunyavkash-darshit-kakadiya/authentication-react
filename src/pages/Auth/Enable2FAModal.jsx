@@ -48,7 +48,7 @@ const Enable2FAModal = () => {
 
   return (
     <CommonModal
-      open={twoFactorEnabled === false}
+      open={twoFactorEnabled === true}
       title="Enable Two-Factor Authentication"
     >
       {qrData?.data?.qrCode && (

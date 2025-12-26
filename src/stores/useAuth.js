@@ -8,7 +8,6 @@ export const useAuth = create(
       id: undefined,
       name: undefined,
       email: undefined,
-      await2FA: null,
       twoFactorEnabled: null,
 
       login: (info) => {
@@ -28,7 +27,6 @@ export const useAuth = create(
           id: undefined,
           name: undefined,
           email: undefined,
-          await2FA: null,
           twoFactorEnabled: null,
         });
 
