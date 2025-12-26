@@ -25,7 +25,14 @@ const GooglePage = () => {
           email: userInfo.email,
           googleId: userInfo.sub,
         };
-        await apiService(apiList.AUTH.GOOGLE_LOGIN, obj);
+        const res = await apiService(apiList.AUTH.GOOGLE_LOGIN, obj);
+        if (res?.data?.require2FA) {
+          setUserInfo({
+            pending2FA: res?.data?.accountId,
+            twoFactorEnabled: true,
+          });
+          return;
+        }
         setUserInfo({
           isLoggedIn: true,
         });
