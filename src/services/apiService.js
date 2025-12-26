@@ -1,67 +1,75 @@
-import { useAuth } from "../stores/useAuth";
 import { getClientFingerprint } from "../utils/deviceInfo";
+import { useAuth } from "../stores/useAuth";
 
 let cachedVisitorId = null;
 
 const getVisitorId = async () => {
   if (cachedVisitorId) return cachedVisitorId;
+
   try {
     const fingerprint = await getClientFingerprint();
-    cachedVisitorId = fingerprint.visitorId;
+    cachedVisitorId = fingerprint?.visitorId || null;
     return cachedVisitorId;
   } catch (error) {
-    console.error("Error getting visitorId:", error);
+    console.error("Fingerprint error:", error);
     return null;
   }
 };
 
-const apiService = async (apiConfig, data = null) => {
+const apiService = async (apiConfig = {}, data = null) => {
+  if (!apiConfig?.url || !apiConfig?.method) {
+    throw new Error("API config must include url and method");
+  }
+
   try {
     const visitorId = await getVisitorId();
 
-    const config = {
-      method: apiConfig.method,
-      headers: {
-        "Content-Type": "application/json",
-        ...(visitorId && { "x-visitor-id": visitorId }),
-      },
+    const headers = {
+      "Content-Type": "application/json",
+      ...(visitorId && { "x-visitor-id": visitorId }),
+    };
+
+    const fetchConfig = {
+      method: apiConfig.method.toUpperCase(),
+      headers,
       credentials: "include",
     };
 
-    if (
-      data &&
-      (apiConfig.method === "POST" ||
-        apiConfig.method === "PUT" ||
-        apiConfig.method === "PATCH")
-    ) {
-      config.body = JSON.stringify(data);
+    if (data && ["POST", "PUT", "PATCH"].includes(fetchConfig.method)) {
+      fetchConfig.body = JSON.stringify(data);
     }
 
-    const response = await fetch(apiConfig.url, config);
+    const response = await fetch(apiConfig.url, fetchConfig);
 
-    // Handle 401 - Check for force logout
+    const isJson = response.headers
+      .get("content-type")
+      ?.includes("application/json");
+
+    const result = isJson ? await response.json() : null;
+
     if (response.status === 401) {
-      const result = await response.json();
-
-      // If forceLogout is true, logout user and redirect to login
       if (result?.data?.forceLogout) {
-        const { logout } = useAuth.getState();
-        logout();
-        window.location.href = "/login";
-        throw new Error(
-          result?.message || "Session expired. Please login again."
-        );
+        const authStore = useAuth.getState();
+        authStore.logout();
+
+        window.location.replace("/login");
       }
+
+      const error = new Error(result?.message || "Unauthorized access");
+      error.status = 401;
+      error.data = result?.data;
+      throw error;
     }
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(
+        result?.message || result?.error || `API Error (${response.status})`
+      );
     }
 
-    const result = await response.json();
     return result;
   } catch (error) {
-    console.error("API call error:", error);
+    console.error("API Service Error:", error);
     throw error;
   }
 };
