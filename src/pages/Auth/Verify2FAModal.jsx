@@ -4,8 +4,10 @@ import CommonModal from "../../components/Modal/Modal";
 import { TextField, Button, Box, Typography, Stack } from "@mui/material";
 import apiService from "../../services/apiService";
 import apiList from "../../constants/apiList";
+import useDeviceInfo from "../../hooks/useDeviceInfo";
 
 const Verify2FAModal = () => {
+  const { deviceInfo } = useDeviceInfo();
   const [otp, setOtp] = useState("");
 
   const { setUserInfo, pending2FA } = useAuth();
@@ -21,6 +23,7 @@ const Verify2FAModal = () => {
       const res = await apiService(apiList.AUTH.LOGIN_VERIFY_2FA, {
         otp,
         accountId: pending2FA,
+        deviceInfo,
       });
       if (res.success) {
         setOtp("");

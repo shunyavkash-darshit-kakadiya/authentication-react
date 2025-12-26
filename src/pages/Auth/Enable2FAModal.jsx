@@ -4,8 +4,10 @@ import CommonModal from "../../components/Modal/Modal";
 import { TextField, Button, Box, Typography, Stack } from "@mui/material";
 import apiService from "../../services/apiService";
 import apiList from "../../constants/apiList";
+import useDeviceInfo from "../../hooks/useDeviceInfo";
 
 const Enable2FAModal = () => {
+  const { deviceInfo } = useDeviceInfo();
   const [otp, setOtp] = useState("");
   const [qrData, setQrData] = useState(null);
   const { twoFactorEnabled, setUserInfo } = useAuth();
@@ -37,6 +39,7 @@ const Enable2FAModal = () => {
     try {
       const res = await apiService(apiList.AUTH.VERIFY_2FA, {
         otp,
+        deviceInfo,
       });
       if (res.success) {
         setOtp("");
