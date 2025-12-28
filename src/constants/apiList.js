@@ -38,6 +38,16 @@ const apiList = {
       url: `${VITE_BACKEND_URL}${appName}${prefix}/auth/2fa/login/verify`,
     },
   },
+  ACTIVE_DEVICE: {
+    GET_DEVICES: {
+      method: "GET",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/active-device/getAll`,
+    },
+    DELETE_DEVICE: {
+      method: "DELETE",
+      url: `${VITE_BACKEND_URL}${appName}${prefix}/active-device/:id`,
+    },
+  }
 };
 
 export default apiList;
