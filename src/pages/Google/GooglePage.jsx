@@ -29,12 +29,11 @@ const GooglePage = () => {
         if (res?.data?.require2FA) {
           setUserInfo({
             pending2FA: res?.data?.accountId,
-            twoFactorEnabled: true,
           });
           return;
         }
         setUserInfo({
-          isLoggedIn: true,
+          isLoggedIn: true, ...res?.data
         });
       } catch (error) {
         console.error("Error fetching Google user info", error);

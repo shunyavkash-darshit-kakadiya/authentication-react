@@ -25,7 +25,7 @@ const LoggedOutProtectedRoute = () => {
 
 function App() {
   const { isLoggedIn, setUserInfo } = useAuth();
-  
+
   useEffect(() => {
     if (!isLoggedIn) return;
 
