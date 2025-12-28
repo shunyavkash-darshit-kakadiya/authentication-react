@@ -42,7 +42,6 @@ const LoginPage = () => {
             }
             setFormData({ email: "", password: "" });
             setUserInfo({
-                isLoggedIn: true,
                 twoFactorEnabled: data?.data?.twoFactorEnabled,
             });
         } catch (error) {

@@ -43,7 +43,7 @@ const Enable2FAModal = () => {
       if (res.success) {
         setOtp("");
         setQrData(null);
-        setUserInfo({ twoFactorEnabled: true });
+        setUserInfo({ twoFactorEnabled: true, isLoggedIn: true });
       }
     } catch (error) {
       console.error("Failed to enable 2FA:", error);
