@@ -25,7 +25,7 @@ const LoggedOutProtectedRoute = () => {
 
 function App() {
   const { isLoggedIn, setUserInfo } = useAuth();
-
+  
   useEffect(() => {
     if (!isLoggedIn) return;
 
@@ -34,7 +34,6 @@ function App() {
         const res = await apiService(apiList.AUTH.SYNC);
         if (res.success) {
           setUserInfo({
-            twoFactorEnabled: res?.data?.twoFactorEnabled,
             email: res?.data?.email,
             id: res?.data?._id,
           });
