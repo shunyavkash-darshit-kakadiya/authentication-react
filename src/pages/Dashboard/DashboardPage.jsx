@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import {
     Typography,
     Box,
@@ -16,6 +16,10 @@ import apiList from "../../constants/apiList";
 
 const DashboardPage = () => {
     const [devices, setDevices] = useState([]);
+
+    useEffect(() => {
+        console.log("DashboardPage Mounted");
+    },[]);
 
     useEffect(() => {
         const fetchDevices = async () => {

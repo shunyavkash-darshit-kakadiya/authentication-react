@@ -12,6 +12,17 @@ import { useEffect } from "react";
 import apiList from "./constants/apiList";
 import apiService from "./services/apiService";
 
+// Move these outside of App to prevent recreation on every render
+const LoggedInProtectedRoute = () => {
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
+};
+
+const LoggedOutProtectedRoute = () => {
+  const { isLoggedIn } = useAuth();
+  return isLoggedIn ? <Navigate to="/" /> : <Outlet />;
+};
+
 function App() {
   const { isLoggedIn, setUserInfo } = useAuth();
 
@@ -35,16 +46,6 @@ function App() {
 
     sync2FAStatus();
   }, [isLoggedIn]);
-
-  const LoggedInProtectedRoute = () => {
-    const { isLoggedIn } = useAuth();
-    return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
-  };
-
-  const LoggedOutProtectedRoute = () => {
-    const { isLoggedIn } = useAuth();
-    return isLoggedIn ? <Navigate to="/" /> : <Outlet />;
-  };
 
   return (
     <>
