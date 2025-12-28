@@ -26,11 +26,6 @@ const LoggedOutProtectedRoute = () => {
 function App() {
   const { isLoggedIn, setUserInfo } = useAuth();
 
-  const auth = useAuth();
-  console.log("Auth Store Data:", auth);
-  const { logState } = useAuth();
-  logState(); // This will log the complete state to console
-
   useEffect(() => {
     if (!isLoggedIn) return;
 
@@ -41,6 +36,7 @@ function App() {
           setUserInfo({
             email: res?.data?.email,
             id: res?.data?._id,
+            ...res.data,
           });
         }
       } catch (error) {
