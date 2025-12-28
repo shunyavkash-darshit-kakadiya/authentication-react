@@ -1,15 +1,21 @@
 import { getClientFingerprint } from "../utils/deviceInfo";
 import { useAuth } from "../stores/useAuth";
+import { getVisitorId as getVisitorIdFromCookie, setVisitorId } from "../utils/cookie";
 
-let cachedVisitorId = null;
+const initVisitorId = async () => {
+  let visitorId = getVisitorIdFromCookie();
 
-const getVisitorId = async () => {
-  if (cachedVisitorId) return cachedVisitorId;
+  if (visitorId) return visitorId;
 
   try {
     const fingerprint = await getClientFingerprint();
-    cachedVisitorId = fingerprint?.visitorId || null;
-    return cachedVisitorId;
+    visitorId = fingerprint?.visitorId || null;
+
+    if (visitorId) {
+      setVisitorId(visitorId); 
+    }
+
+    return visitorId;
   } catch (error) {
     console.error("Fingerprint error:", error);
     return null;
@@ -22,7 +28,7 @@ const apiService = async (apiConfig = {}, data = null) => {
   }
 
   try {
-    const visitorId = await getVisitorId();
+    const visitorId = await initVisitorId();
 
     const headers = {
       "Content-Type": "application/json",
