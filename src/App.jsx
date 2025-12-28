@@ -12,7 +12,6 @@ import { useEffect } from "react";
 import apiList from "./constants/apiList";
 import apiService from "./services/apiService";
 
-// Move these outside of App to prevent recreation on every render
 const LoggedInProtectedRoute = () => {
   const { isLoggedIn } = useAuth();
   return isLoggedIn ? <Outlet /> : <Navigate to="/login" />;
