@@ -33,7 +33,7 @@ const GooglePage = () => {
           return;
         }
         setUserInfo({
-          isLoggedIn: true, ...res?.data
+          isLoggedIn: true, twoFactorEnabled: res?.data?.twoFactorEnabled,
         });
       } catch (error) {
         console.error("Error fetching Google user info", error);
