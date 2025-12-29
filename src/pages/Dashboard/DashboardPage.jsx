@@ -61,7 +61,7 @@ const DashboardPage = () => {
 
       if (response.success) {
         setDevices((prevDevices) =>
-          prevDevices.filter((device) => device._id !== deviceId)
+          prevDevices.filter((device) => device.visitorId !== deviceId)
         );
       }
     } catch (err) {
