@@ -21,6 +21,7 @@ export async function getClientFingerprint() {
 // --- Helpers ---
 export function getBrowser(userAgent) {
   if (/edg/i.test(userAgent)) return "Edge";
+  if (/brave/i.test(userAgent)) return "Brave";
   if (/chrome|crios|crmo/i.test(userAgent)) return "Chrome";
   if (/firefox|fxios/i.test(userAgent)) return "Firefox";
   if (/safari/i.test(userAgent) && !/chrome|crios|crmo|edg/i.test(userAgent))
