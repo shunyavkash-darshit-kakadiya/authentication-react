@@ -104,7 +104,7 @@ const DashboardPage = () => {
 
                   <TableCell>
                     <Button
-                      onClick={() => deleteDevice(device._id)}
+                      onClick={() => deleteDevice(device.visitorId)}
                       disabled={device.visitorId === visitorId}
                       variant="contained"
                       color={
