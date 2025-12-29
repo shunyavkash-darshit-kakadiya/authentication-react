@@ -7,7 +7,6 @@ import TestPage from "./pages/Test/TestPage";
 import DashboardPage from "./pages/Dashboard/DashboardPage";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "./stores/useAuth";
-import Enable2FAModal from "./pages/Auth/Enable2FAModal";
 import { useEffect } from "react";
 import apiList from "./constants/apiList";
 import apiService from "./services/apiService";
@@ -61,7 +60,6 @@ function App() {
           </Route>
         </Routes>
       </Router>
-      <Enable2FAModal />
     </>
   );
 }
