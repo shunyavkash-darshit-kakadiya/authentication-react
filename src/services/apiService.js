@@ -35,6 +35,8 @@ const apiService = async (apiConfig = {}, data = null) => {
 
     const headers = {
       "Content-Type": "application/json",
+      // ngrok skip browser warning page
+      "ngrok-skip-browser-warning": "69420",
       ...(visitorId && { "x-visitor-id": visitorId }),
     };
 
