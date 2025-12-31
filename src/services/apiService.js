@@ -1,6 +1,9 @@
 import { getClientFingerprint } from "../utils/deviceInfo";
 import { useAuth } from "../stores/useAuth";
-import { getVisitorId as getVisitorIdFromCookie, setVisitorId } from "../utils/cookie";
+import {
+  getVisitorId as getVisitorIdFromCookie,
+  setVisitorId,
+} from "../utils/cookie";
 
 const initVisitorId = async () => {
   let visitorId = getVisitorIdFromCookie();
@@ -12,7 +15,7 @@ const initVisitorId = async () => {
     visitorId = fingerprint?.visitorId || null;
 
     if (visitorId) {
-      setVisitorId(visitorId); 
+      setVisitorId(visitorId);
     }
 
     return visitorId;
