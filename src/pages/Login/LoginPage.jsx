@@ -1,19 +1,19 @@
-import React, { useState } from "react";
-import {
-  TextField,
-  Button,
-  Typography,
-  Box,
-  Container,
-  Paper,
-} from "@mui/material";
-import { Link } from "react-router-dom";
 import apiList from "../../constants/apiList";
 import apiService from "../../services/apiService";
-import GooglePage from "../Google/GooglePage";
 import { useAuth } from "../../stores/useAuth";
-import Verify2FAModal from "../Auth/Verify2FAModal";
 import Enable2FAModal from "../Auth/Enable2FAModal";
+import Verify2FAModal from "../Auth/Verify2FAModal";
+import GooglePage from "../Google/GooglePage";
+import {
+  Box,
+  Button,
+  Container,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const LoginPage = () => {
   const { setUserInfo } = useAuth();

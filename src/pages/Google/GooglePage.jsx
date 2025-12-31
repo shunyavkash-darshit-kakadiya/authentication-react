@@ -1,9 +1,9 @@
-import React from "react";
-import Button from "@mui/material/Button";
-import { useGoogleLogin } from "@react-oauth/google";
 import apiList from "../../constants/apiList";
 import apiService from "../../services/apiService";
 import { useAuth } from "../../stores/useAuth";
+import Button from "@mui/material/Button";
+import { useGoogleLogin } from "@react-oauth/google";
+import React from "react";
 
 const GooglePage = () => {
   const { setUserInfo } = useAuth();

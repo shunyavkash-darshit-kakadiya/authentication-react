@@ -1,13 +1,13 @@
-import React from "react";
+import CloseIcon from "@mui/icons-material/Close";
 import {
-  Modal,
   Box,
-  Typography,
   IconButton,
+  Modal,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
+import React from "react";
 
 const CommonModal = ({
   open,

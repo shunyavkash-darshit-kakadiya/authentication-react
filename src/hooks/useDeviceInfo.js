@@ -1,5 +1,5 @@
+import { getBrowser, getClientFingerprint,getOS } from "../utils/deviceInfo";
 import { useEffect, useState } from "react";
-import { getBrowser, getOS, getClientFingerprint } from "../utils/deviceInfo";
 
 const useDeviceInfo = () => {
   const [deviceInfo, setDeviceInfo] = useState(null);

@@ -1,15 +1,15 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import apiList from "./constants/apiList";
 import Header from "./layouts/header/Header";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 import LoginPage from "./pages/Login/LoginPage";
 import RegisterPage from "./pages/Register/RegisterPage";
 import TestPage from "./pages/Test/TestPage";
-import DashboardPage from "./pages/Dashboard/DashboardPage";
-import { Navigate, Outlet } from "react-router-dom";
+import apiService from "./services/apiService";
 import { useAuth } from "./stores/useAuth";
 import { useEffect } from "react";
-import apiList from "./constants/apiList";
-import apiService from "./services/apiService";
+import { BrowserRouter as Router, Route,Routes } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const LoggedInProtectedRoute = () => {
   const { isLoggedIn } = useAuth();

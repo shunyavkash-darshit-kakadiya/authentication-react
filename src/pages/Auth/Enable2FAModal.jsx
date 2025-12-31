@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { useAuth } from "../../stores/useAuth";
 import CommonModal from "../../components/Modal/Modal";
-import { TextField, Button, Box, Typography, Stack } from "@mui/material";
-import apiService from "../../services/apiService";
 import apiList from "../../constants/apiList";
 import useDeviceInfo from "../../hooks/useDeviceInfo";
+import apiService from "../../services/apiService";
+import { useAuth } from "../../stores/useAuth";
+import { Box, Button, Stack, TextField, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
 
 const Enable2FAModal = () => {
   const { deviceInfo } = useDeviceInfo();
