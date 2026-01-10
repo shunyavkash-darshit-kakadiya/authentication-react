@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 
 const useDeviceInfo = () => {
   const [deviceInfo, setDeviceInfo] = useState(null);
+  console.log("useDeviceInfo called");
 
   useEffect(() => {
     const fetchDeviceInfo = async () => {
